@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "crawlerdata": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.14.3",
+        "https://api.crawlerdata.com/mcp",
+        "--header",
+        "Authorization:${AUTH_HEADER}"
+      ],
+      "env": {
+        "AUTH_HEADER": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "crawlerdata": {
+      "url": "https://api.crawlerdata.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:CRAWLERDATA_API_KEY}"
+      }
+    }
+  }
+}
