@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "crawlerdata": {
+      "type": "streamableHttp",
+      "url": "https://api.crawlerdata.com/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

@@ -1,6 +1,6 @@
-# Google Search & Google Shopping MCP Server for Claude, Cursor and n8n
+# Google Search (SERP) MCP Server for Claude, Cursor, Cline and n8n
 
-Give Claude Code, Claude Desktop, Cursor, n8n or any MCP client live Google data. The CrawlerData **remote MCP server** at `https://api.crawlerdata.com/mcp` exposes eight tools — Google Search, Google Shopping search, all sellers of a product, product details, Google Images, Google News, Google Local and Autocomplete — so your assistant can look things up on Google while it works. This repo has copy-paste configs for each client and a small Python script to check your connection.
+Give Claude Code, Claude Desktop, Cursor, Cline, n8n or any MCP client live Google data. The CrawlerData **remote MCP server** at `https://api.crawlerdata.com/mcp` exposes eight read-only tools — Google Search (with the AI Overview and its sources), Google News, Google Images, Google Local, Autocomplete, and Google Shopping search, all sellers of a product and product details — so your assistant can look things up on Google while it works. This repo has copy-paste configs for each client and a small Python script to check your connection.
 
 > **Uses the CrawlerData API — you need an API key** (free trial credits available at https://app.crawlerdata.com/register). Tool calls cost the same credits as the REST API: 1 credit per call (Google Shopping sellers: 1 credit per 10 sellers returned).
 
@@ -12,7 +12,7 @@ This is a **hosted** server run by CrawlerData. There is nothing to install or s
 | --- | --- |
 | URL | `https://api.crawlerdata.com/mcp` |
 | Transport | Streamable HTTP (stateless; no SSE endpoint, no session ID) |
-| Auth | Header `Authorization: Bearer YOUR_API_KEY` (no OAuth) |
+| Auth | OAuth 2.1 sign-in (dynamic client registration, PKCE) for clients that support it, or an API key in the header `Authorization: Bearer YOUR_API_KEY` |
 | Registry | Listed in the official MCP Registry as `com.crawlerdata/google-shopping-serp` |
 
 ## Tools
@@ -106,6 +106,26 @@ Put this in `.cursor/mcp.json` in your project (or `~/.cursor/mcp.json` for all 
   }
 }
 ```
+
+## Cline
+
+Cline supports remote servers over Streamable HTTP. In the Cline panel open **MCP Servers → Configure → Configure MCP Servers** and add the server to `cline_mcp_settings.json` (a copy is in [`configs/cline_mcp_settings.json`](configs/cline_mcp_settings.json)):
+
+```json
+{
+  "mcpServers": {
+    "crawlerdata": {
+      "type": "streamableHttp",
+      "url": "https://api.crawlerdata.com/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
+
+Or use **MCP Servers → Remote Servers**: name `crawlerdata`, URL `https://api.crawlerdata.com/mcp`, transport **Streamable HTTP**, then add the `Authorization` header. Step-by-step instructions for agents are in [`llms-install.md`](llms-install.md).
 
 ## n8n
 
