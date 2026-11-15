@@ -27,6 +27,7 @@ This is a **hosted** server run by CrawlerData. There is nothing to install or s
 | `google_news` | **query**, country, language, page | Headline, source, date, snippet, link | 1 |
 | `google_local` | **query**, country, language, page | Businesses with rating, reviews, address, phone, hours, website | 1 |
 | `google_autocomplete` | **query**, country, language | Google search suggestions | 1 |
+| `crawl_page` | **url**, format (markdown/html/text), render_js, country_code, wait_for | Any public web page as markdown (default), HTML or text | 1 plain, 3 with JavaScript, 10 for hard-protected sites |
 
 `country` is one of 31 codes (us, gb, ca, au, de, fr, nl, it, es, pt, be, at, ch, se, no, dk, fi, ie, pl, cz, il, ae, in, jp, kr, sg, mx, br, nz, za, tr). `initialize` and `tools/list` are free.
 
@@ -198,12 +199,13 @@ google_autocomplete -> credits: 1
 - "Get the latest Google News results for *nvidia* and summarise the main stories."
 - "List 10 highly rated plumbers in Austin, TX with phone numbers."
 - "What does Google autocomplete suggest for *how to start a*?"
+- "Read https://example.com/pricing and summarise the plans." (uses `crawl_page`)
 
 For Google Shopping, ask the assistant to search by **brand and model** (not a bare barcode/GTIN, which often matches unrelated products) and to ignore offers for accessories or other sizes. For web search, plain keywords work best; don't rely on advanced operators such as `site:`.
 
 ## Cost
 
-Each tool call is one API request and costs the same as the REST API: 1 credit, except `google_shopping_sellers` at 1 credit per 10 sellers returned (rounded up, minimum 1). Failed calls are free. An assistant may call several tools to answer one question (for example a shopping search followed by a sellers call), so ask it to stop after one search if you want to keep a conversation to a single credit. Packs run from $1.00 down to $0.30 per 1,000 credits ([pricing](https://crawlerdata.com/pricing)). Each tool result includes the credits it used.
+Each tool call is one API request and costs the same as the REST API: 1 credit, except `google_shopping_sellers` at 1 credit per 10 sellers returned (rounded up, minimum 1) and `crawl_page` at 1 credit for a plain fetch, 3 with JavaScript rendering and 10 for hard-protected sites (charged by what the page needed). Failed calls are free. An assistant may call several tools to answer one question (for example a shopping search followed by a sellers call), so ask it to stop after one search if you want to keep a conversation to a single credit. Packs run from $1.00 down to $0.30 per 1,000 credits ([pricing](https://crawlerdata.com/pricing)). Each tool result includes the credits it used.
 
 ## Troubleshooting
 
